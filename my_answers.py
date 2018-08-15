@@ -37,60 +37,16 @@ def build_part1_RNN(window_size):
 
 ### TODO: return the text input with only ascii lowercase and the punctuation given below included.
 def cleaned_text(text):
+    import string
     punctuation = ['!', ',', '.', ':', ';', '?']
-
-
-    text = text.replace('\ufeff', ' ')
-    text = text.replace('\u000b', ' ')
-    text = text.replace('\r',' ')
-    text = text.replace('\t', ' ')
-    text = text.replace('\n', ' ')
-    text = text.replace('\f', ' ')
-
-    text = text.replace('à', 'a')
-    text = text.replace('â', 'a')
-    text = text.replace('è', 'e')
-    text = text.replace('é', 'e')
-    text = text.replace('@', ' ')
-    text = text.replace('*', ' ')
-    text = text.replace('&', ' ')
-    text = text.replace('#', ' ')
-    text = text.replace('$', ' ')
-    text = text.replace('/', ' ')
-    text = text.replace('-', ' ')
-    text = text.replace('%', ' ')
-    text = text.replace('(', ' ')
-    text = text.replace(')', ' ')
-    text = text.replace('[', ' ')
-    text = text.replace(']', ' ')
-    text = text.replace('_', ' ')
-    text = text.replace('`', ' ')
-    text = text.replace('~', ' ')
-    text = text.replace('<', ' ')
-    text = text.replace('>', ' ')
-    text = text.replace('|', ' ')
-    text = text.replace('^', ' ')
-    text = text.replace('=', ' ')
-    text = text.replace('\\', ' ')
-    text = text.replace('/', ' ')
-    text = text.replace('{', ' ')
-    text = text.replace('}', ' ')
-    text = text.replace('+', ' ')
-    text = text.replace('\'', ' ')
-    text = text.replace('\"', ' ')
-
-    text = text.replace('0', ' ')
-    text = text.replace('1', ' ')
-    text = text.replace('2', ' ')
-    text = text.replace('3', ' ')
-    text = text.replace('4', ' ')
-    text = text.replace('5', ' ')
-    text = text.replace('6', ' ')
-    text = text.replace('7', ' ')
-    text = text.replace('8', ' ')
-    text = text.replace('9', ' ')
-
+    del_character = []
+    for c in text:
+        if c not in string.ascii_lowercase and c not in string.ascii_uppercase and c not in punctuation:
+            del_character.append(c)
+    for del_character in set(del_character):
+        text = text.replace(del_character, ' ')
     return text
+
 
 ### TODO: fill out the function below that transforms the input text and window-size into a set of input/output pairs for use with our RNN model
 def window_transform_text(text, window_size, step_size):
